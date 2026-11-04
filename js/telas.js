@@ -143,7 +143,7 @@ const TELAS = [
       botao.addEventListener("click", () => { ok = !ok; pintar(); });
       pintar();
       return [
-        h("h2", { class: "titulo" }, "Cadastre um ", destaque("novo ecoponto"), " no array"),
+        h("h2", { class: "titulo" }, "Cadastre um ", destaque("novo ecoponto"), " na lista"),
         h("p", { class: "sub" }, "Em ", arq("js/app.js"), " · lista ", arq("LOCAIS_COLETA"), " · ", forte("no final"), ", antes do ", arq("];")),
         h("div", { class: "corpo c2c" },
           h("div", { class: "pilha" }, editor,
