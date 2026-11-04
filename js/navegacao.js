@@ -1,5 +1,5 @@
 /* ==========================================================
-   navegacao.js · telas, passo a passo, cronômetro, linha do
+   navegacao.js · telas, cronômetro, linha do
    tempo, visão geral, notas do instrutor e teclado
    ========================================================== */
 const Nav = {
@@ -24,28 +24,17 @@ function montarTelas() {
   };
 }
 
-/* ---------- passo a passo ---------- */
-const passosDe = (s) => [...s.querySelectorAll(".passo")];
-const emPassoAPasso = () => document.body.classList.contains("passo-a-passo");
-
-function definirPassoAPasso(ativo) {
-  document.body.classList.toggle("passo-a-passo", ativo);
-  Nav.slides.forEach(s => passosDe(s).forEach(p => p.classList.toggle("visivel", !ativo)));
-  atualizarBotao();
-}
+/* ---------- botão "próxima" ---------- */
 function atualizarBotao() {
-  const pendentes = emPassoAPasso() && passosDe(Nav.slides[Nav.indice]).some(p => !p.classList.contains("visivel"));
-  Nav.els.proximo.textContent = (Nav.indice === Nav.slides.length - 1 && !pendentes) ? "Fim ✓" : (pendentes ? "Mostrar →" : "Próxima tela →");
+  Nav.els.proximo.textContent = Nav.indice === Nav.slides.length - 1 ? "Fim ✓" : "Próxima tela →";
 }
 
 /* ---------- navegação ---------- */
-function irPara(i, mostrarTudo) {
+function irPara(i) {
   Nav.slides[Nav.indice].classList.remove("ativo");
   Nav.indice = Math.max(0, Math.min(Nav.slides.length - 1, i));
   const s = Nav.slides[Nav.indice];
   s.classList.add("ativo"); s.scrollTop = 0;
-  passosDe(s).forEach((p, k) => p.style.setProperty("--i", k));
-  passosDe(s).forEach(p => p.classList.toggle("visivel", !emPassoAPasso() || !!mostrarTudo));
   Nav.els.indicador.textContent = `Tela ${Nav.indice + 1} / ${Nav.slides.length}`;
   Nav.els.progresso.style.width = ((Nav.indice + 1) / Nav.slides.length * 100) + "%";
   Nav.els.progresso.style.background = getComputedStyle(s).getPropertyValue("--acento");
@@ -54,14 +43,8 @@ function irPara(i, mostrarTudo) {
   reiniciarCronometro(); atualizarBotao(); atualizarNotas();
   if (Nav.indice === Nav.slides.length - 1) lancarConfete();
 }
-function proximo() {
-  if (emPassoAPasso()) {
-    const oculto = passosDe(Nav.slides[Nav.indice]).find(p => !p.classList.contains("visivel"));
-    if (oculto) { oculto.classList.add("visivel"); atualizarBotao(); return; }
-  }
-  if (Nav.indice < Nav.slides.length - 1) irPara(Nav.indice + 1);
-}
-function anterior() { if (Nav.indice > 0) irPara(Nav.indice - 1, true); }
+function proximo() { if (Nav.indice < Nav.slides.length - 1) irPara(Nav.indice + 1); }
+function anterior() { if (Nav.indice > 0) irPara(Nav.indice - 1); }
 
 /* ---------- cronômetro por tela ---------- */
 const fmt = (s) => (s < 0 ? "−" : "") + String(Math.floor(Math.abs(s) / 60)).padStart(2, "0") + ":" + String(Math.abs(s) % 60).padStart(2, "0");
@@ -84,14 +67,14 @@ function montarLinhaTempo() {
   TELAS.forEach((t, i) => Nav.els.tempo.append(h("button", {
     type: "button", class: "trecho", style: `flex-grow:${t.min};--c:var(--b${t.bloco})`,
     "aria-label": `Ir para a tela ${i + 1}: ${t.titulo} (${t.min} min)`, title: `${i + 1}. ${t.titulo} · ${t.min} min`,
-    onclick: () => irPara(i, true) }, String(i + 1))));
+    onclick: () => irPara(i) }, String(i + 1))));
 }
 
 /* ---------- visão geral (G) ---------- */
 const NOMES_BLOCO = ["Acolhida", "Bloco 1", "Bloco 2", "Bloco 3", "Bloco 4"];
 function montarVisaoGeral() {
   TELAS.forEach((t, i) => Nav.els.vgGrade.append(h("button", { type: "button", class: "vg-item", style: `--c:var(--b${t.bloco})`,
-    onclick: () => { fecharVisaoGeral(); irPara(i, true); } },
+    onclick: () => { fecharVisaoGeral(); irPara(i); } },
     h("span", { class: "n" }, `TELA ${i + 1} · ${t.intervalo}`), h("span", { class: "t" }, t.titulo), h("span", { class: "m" }, `${NOMES_BLOCO[t.bloco]} · ${t.min} min`))));
   document.getElementById("fechar-vg").addEventListener("click", fecharVisaoGeral);
 }
@@ -118,25 +101,19 @@ document.addEventListener("keydown", (ev) => {
   if (k === "ArrowRight" || k === "PageDown") { ev.preventDefault(); proximo(); }
   else if (k === " " && !emBotao) { ev.preventDefault(); proximo(); }
   else if (k === "ArrowLeft" || k === "PageUp") { ev.preventDefault(); anterior(); }
-  else if (k === "Home") irPara(0, true);
-  else if (k === "End") irPara(Nav.slides.length - 1, true);
-  else if (/^[1-8]$/.test(k)) irPara(Number(k) - 1, true);
+  else if (k === "Home") irPara(0);
+  else if (k === "End") irPara(Nav.slides.length - 1);
+  else if (/^[1-8]$/.test(k)) irPara(Number(k) - 1);
   else if (k === "g" || k === "G" || k === "Escape") abrirVisaoGeral();
   else if (k === "p" || k === "P") alternarCronometro();
   else if (k === "r" || k === "R") reiniciarCronometro();
   else if (k === "n" || k === "N") alternarNotas();
   else if (k === "?" || k === "h" || k === "H") alternarAjuda();
-  else if (k === "s" || k === "S") definirPassoAPasso(!emPassoAPasso());
   else if (k === "f" || k === "F") { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(() => {}); }
 });
-
-/* ---------- impressão (Ctrl+P → PDF): mostra tudo e restaura depois ---------- */
-let eraPassoAPasso = false;
-window.addEventListener("beforeprint", () => { eraPassoAPasso = emPassoAPasso(); document.body.classList.remove("passo-a-passo"); });
-window.addEventListener("afterprint", () => { if (eraPassoAPasso) document.body.classList.add("passo-a-passo"); });
 
 /* ---------- # na URL (botão voltar, links diretos) ---------- */
 window.addEventListener("hashchange", () => {
   const n = parseInt(location.hash.slice(1), 10);
-  if (n >= 1 && n <= Nav.slides.length && n - 1 !== Nav.indice) irPara(n - 1, true);
+  if (n >= 1 && n <= Nav.slides.length && n - 1 !== Nav.indice) irPara(n - 1);
 });
