@@ -8,13 +8,18 @@ const CONFIG = {
   // Tela 2: sala do Curso 2 no Moodle IFSC
   moodle: "https://moodle.ifsc.edu.br/course/view.php?id=2664",
   // Tela 8: link da pesquisa de satisfação (vem da Frente 4)
-  pesquisa: ""
+  pesquisa: "",
+  // Tela 7: link do Mural do Curso 2 (Seção 4 do Moodle, criado pelas Frentes 1 e 4)
+  mural: ""
 };
 
-/* Configura sem editar código:  ?pesquisa=https://...  e  ?modo=aluno */
+/* Configura sem editar código:  ?pesquisa=https://...  ?mural=https://...  e  ?modo=aluno */
 const PARAMS = new URLSearchParams(location.search);
 const pesquisaParam = PARAMS.get("pesquisa");
 if (pesquisaParam && /^https:\/\//i.test(pesquisaParam)) CONFIG.pesquisa = pesquisaParam;
+
+const muralParam = PARAMS.get("mural");
+if (muralParam && /^https:\/\//i.test(muralParam)) CONFIG.mural = muralParam;
 
 const MODO_ALUNO = PARAMS.get("modo") === "aluno" || window.matchMedia("(max-width: 991px)").matches;
 const REDUZ_MOVIMENTO = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
