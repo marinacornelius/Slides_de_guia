@@ -366,16 +366,24 @@ kbd {
   position: fixed; left: 0; right: 0; bottom: 0; height: var(--h-rodape); z-index: 50; display: flex; align-items: center; gap: 1.4rem;
   padding: 0 2rem; background: rgba(255, 255, 255, .92); backdrop-filter: blur(10px); border-top: 1px solid var(--linha); font-size: 1.15rem;
 }
-#indicadorTela { font-weight: 800; font-size: 1.3rem; white-space: nowrap; min-width: 8rem; }
+#indicadorTela { display: flex; flex-direction: column; line-height: 1.15; white-space: nowrap; min-width: 9.5rem; }
+#indicadorTela b { font-weight: 800; font-size: 1.3rem; }
+#indicadorTela small { font-size: 1rem; font-weight: 700; color: var(--suave); }
+#indicadorTela small.estourou { color: var(--alerta); }
 .linha-tempo { flex: 1; display: flex; gap: .35rem; height: 2.4rem; }
 .trecho {
   flex-basis: 0; border: 0; border-radius: .7rem; background: color-mix(in srgb, var(--c) 18%, #fff); color: var(--c); font-weight: 800; font-size: 1.15rem; cursor: pointer;
   position: relative; overflow: hidden; transition: all .2s; min-width: 2.4rem;
 }
+.trecho::after { content: ""; position: absolute; left: 0; bottom: 0; height: .3rem; width: var(--p, 0%); background: var(--c); transition: width .4s linear; }
+.trecho.ativo::after { background: #fff; }
+.trecho.passou::after { background: var(--alerta); }
 .trecho:hover { background: color-mix(in srgb, var(--c) 32%, #fff); }
 .trecho.feito { background: color-mix(in srgb, var(--c) 55%, #fff); color: #fff; }
 .trecho.ativo { background: var(--c); color: #fff; box-shadow: 0 0 0 .2rem #fff, 0 0 0 .4rem var(--c); }
-#cronometro { font-family: var(--mono); font-weight: 700; font-size: 1.3rem; border: .13rem solid var(--linha); background: #fff; color: var(--tinta); border-radius: .9rem; padding: .3rem .9rem; cursor: pointer; min-width: 8.5rem; }
+#cronometro { font-family: var(--mono); font-weight: 700; font-size: 1.3rem; border: .13rem solid var(--linha); background: #fff; color: var(--tinta); border-radius: .9rem; padding: .15rem .9rem; cursor: pointer; min-width: 12rem; display: flex; flex-direction: column; align-items: center; line-height: 1.15; }
+#cronometro .c-bloco { font-family: var(--fonte, inherit); font-size: 1rem; font-weight: 700; color: var(--suave); }
+#cronometro .c-bloco.estourou { color: var(--alerta); }
 #cronometro.pausado { color: var(--suave); }
 #cronometro.alerta { background: #fff3d6; border-color: #f59f00; color: #7a3a00; }
 #cronometro.estourou { background: #ffe3e3; border-color: var(--alerta); color: var(--alerta); animation: pisca 1s infinite; }
