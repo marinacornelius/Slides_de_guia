@@ -9,7 +9,6 @@ HTML + Bootstrap 5 + JavaScript puro, sem build: abre com duplo clique no `index
 |---|---|
 | `←` `→` ou `Espaço` | navegar |
 | `1`–`8` | ir direto à tela |
-| `S` | passo a passo (revela item a item) |
 | `G` | visão geral das 8 telas |
 | `N` | notas do instrutor (com a página do Micro-Roteiro) |
 | `P` / `R` | cronômetro da tela: iniciar-pausar / zerar |
