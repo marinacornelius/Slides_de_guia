@@ -18,6 +18,27 @@ function ligarFoco(lista, alvos) {
   return lista;
 }
 
+/* contador dos cartões da turma: o instrutor clica a cada cartão levantado (+) ou baixado (−) */
+function semaforoTurma() {
+  const contador = (cls, icone, texto) => {
+    let n = 0;
+    const num = h("b", { "aria-live": "polite" }, "0");
+    const muda = (d) => { n = Math.max(0, n + d); num.textContent = String(n); caixa.classList.toggle("ativa", n > 0); };
+    const caixa = h("div", { class: "luz " + cls },
+      h("button", { type: "button", class: "menos", "aria-label": "Tirar um cartão: " + texto, onclick: () => muda(-1) }, "−"),
+      h("button", { type: "button", class: "mais", "aria-label": "Contar um cartão: " + texto, onclick: () => muda(1) }, icone + " " + texto),
+      num);
+    caixa.zerar = () => muda(-n);
+    return caixa;
+  };
+  const verde = contador("verde", "🟩", "Terminei");
+  const vermelha = contador("vermelha", "🟥", "Preciso de ajuda");
+  return h("div", { class: "semaforo", role: "group", "aria-label": "Contador de cartões da turma" },
+    verde, vermelha,
+    h("button", { type: "button", class: "zerar", title: "Zerar os dois contadores", onclick: () => { verde.zerar(); vermelha.zerar(); } }, "↺ Zerar"),
+    h("p", { class: "dica-semaforo" }, "Clique a cada cartão levantado pela turma"));
+}
+
 const numero = (n, rotulo) => h("span", { class: "numero" }, h("b", null, n), rotulo);
 
 const TELAS = [
@@ -25,16 +46,14 @@ const TELAS = [
   {
     rotulo: "Acolhida", titulo: "Acolhida", bloco: 0, min: 10, intervalo: "00–10 min", pagina: 1, classe: "capa",
     notas: ["Receba a turma com esta tela já projetada.", "Peça para apontarem a câmera do celular para o QR: é o resultado que vão construir.",
-            "Combine o sinal de ajuda: cartão verde = terminei, cartão vermelho = estou travado."],
+            "Combine o sinal de ajuda: cartão verde = terminei, cartão vermelho = estou travado. Conte os cartões levantados nos botões da tela: o contador vermelho mostra quantos pedem ajuda."],
     render: () => [
       h("div", { class: "capa-grade" },
         h("div", null,
           h("h1", null, "Painel Verde de Garopaba", h("span", { class: "destaque" }, "no ar em 120 minutos")),
           h("p", { class: "lead" }, "Coleta seletiva e ecopontos · ", forte("SNCT 2026"), " · IFSC Câmpus Garopaba. Hoje você publica ", forte("o seu site"), " e o abre no celular por QR Code."),
           passo(h("div", { class: "numeros" }, numero("4", "blocos práticos"), numero("0", "instalações"), numero("1", "site seu, no ar"))),
-          passo(h("div", { class: "semaforo" },
-            h("span", { class: "luz verde" }, "🟩 Cartão verde: terminei"),
-            h("span", { class: "luz vermelha" }, "🟥 Cartão vermelho: preciso de ajuda")))),
+          passo(semaforoTurma())),
         passo(h("div", { class: "qr-card" },
           caixaQr(CONFIG.painelDemo, 300, false),
           h("p", { class: "legenda" }, "📱 Aponte a câmera e veja o painel pronto"),
@@ -225,7 +244,7 @@ const TELAS = [
   {
     rotulo: "Bloco 4", titulo: "Bloco 4 · QR Code e Mural", bloco: 4, min: 15, intervalo: "95–110 min", pagina: 4,
     notas: ["Cada aluno cola a própria URL .github.io no gerador.", "Peça que testem o QR no celular do colega ao lado.",
-            "O Mural do Curso 2 fica na Seção 4 do Moodle."],
+            "O Mural do Curso 2 fica na Seção 4 do Moodle e é criado pelas Frentes 1 e 4: confirme que ele existe antes da oficina.", "Se aparecer o aviso amarelo, falta o link do Mural: abra os slides com ?mural=LINK."],
     render: () => [
       h("h2", { class: "titulo" }, "Gere o ", destaque("QR Code"), " e poste no ", destaque("Mural")),
       h("div", { class: "corpo c2b" },
@@ -233,10 +252,11 @@ const TELAS = [
           listaPassos([
             ["Cole a ", forte("URL .github.io"), " do seu painel no gerador"],
             ["Clique em ", forte("Baixar PNG")],
-            ["No Moodle, abra o ", forte("Mural do Curso 2"), " e poste ", forte("QR + link")],
+            ["No Moodle (", forte("Seção 4"), "), abra o ", CONFIG.mural ? h("a", { href: CONFIG.mural, target: "_blank", rel: "noopener" }, forte("Mural do Curso 2")) : forte("Mural do Curso 2"), " e poste ", forte("QR + link")],
             ["Teste no ", forte("celular de um colega"), " 📱"]
           ]),
-          cartao("dica", "Dica", "Se o QR abrir em branco, volte à Tela 6: o link ainda não está no ar.")),
+          cartao("dica", "Dica", "Se o QR abrir em branco, volte à Tela 6: o link ainda não está no ar."),
+          !CONFIG.mural && h("div", { class: "aviso-config" }, "⚠️ Falta o link do Mural na Seção 4 (Frentes 1 e 4). Use ", h("code", null, "?mural=LINK"), " na URL.")),
         h("div", { class: "pilha" }, geradorQr())),
       checkpoint("O Painel Verde abre no ", forte("celular de outra pessoa"), " pelo QR Code.")
     ]
