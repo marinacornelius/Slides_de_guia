@@ -45,7 +45,7 @@ function cartao(tipo, rotulo, ...conteudo) {
 /* barra superior de cada tela */
 function topo(n, rotulo, intervalo) {
   return h("div", { class: "topo" },
-    h("span", { class: "eyebrow" }, h("span", { class: "num" }, String(n)), rotulo, h("span", { class: "tempo" }, "· " + intervalo)),
+    h("span", { class: "eyebrow" }, "Tela ", h("span", { class: "num" }, String(n)), "de 8 · " + rotulo, h("span", { class: "tempo" }, "· " + intervalo)),
     h("span", { class: "marca" }, h("img", { src: "img/logo-painel-verde.svg", alt: "" }), "Painel Verde · SNCT 2026"));
 }
 
