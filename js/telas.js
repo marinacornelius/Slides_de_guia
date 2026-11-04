@@ -36,7 +36,7 @@ const TELAS = [
             h("span", { class: "luz verde" }, "🟩 Cartão verde: terminei"),
             h("span", { class: "luz vermelha" }, "🟥 Cartão vermelho: preciso de ajuda")))),
         passo(h("div", { class: "qr-card" },
-          caixaQr(CONFIG.painelDemo, 230, false),
+          caixaQr(CONFIG.painelDemo, 300, false),
           h("p", { class: "legenda" }, "📱 Aponte a câmera e veja o painel pronto"),
           h("p", { class: "link-curto" }, CONFIG.painelDemo.replace("https://", ""))))),
       passo(h("div", { class: "agenda", "aria-label": "Agenda da oficina" },
@@ -129,13 +129,13 @@ const TELAS = [
     notas: ["Digite junto com a turma, narrando cada linha em voz alta.", "Clique em “Esqueça a vírgula” para mostrar o erro mais comum antes de ele acontecer.",
             "Lembre: a categoria precisa ser igual ao texto de um botão."],
     render: () => {
-      const corpo = (ok) => `  }${ok ? "," : ""}\n  {\n    nome: "Meu Ecoponto",\n    bairro: "Meu Bairro",\n    categoria: "Oleo",\n    horario: "Sabados, 09h as 13h",\n    mapaUrl: "https://maps.google.com/?q=Garopaba"\n  }\n];`;
-      const editor = blocoCodigo("js/app.js", corpo(true), { destacar: [1] });
+      const corpo = (ok) => `const LOCAIS_COLETA = [\n  { nome: "Ponto Verde IFSC", bairro: "Campo D'Una" }${ok ? "," : ""}\n  {\n    nome: "Meu Ecoponto",\n    bairro: "Meu Bairro",\n    categoria: "Oleo",\n    horario: "Sabados, 09h as 13h",\n    mapaUrl: "https://maps.google.com/?q=Garopaba"\n  }\n];`;
+      const editor = blocoCodigo("js/app.js", corpo(true), { destacar: [2] });
       const resultado = h("div", { class: "pilha" });
       let ok = true;
       const botao = h("button", { type: "button", class: "btn-acao perigo" }, "💥 Esqueça a vírgula");
       const pintar = () => {
-        editor.definir(corpo(ok), ok ? [1] : [], ok ? [] : [1]);
+        editor.definir(corpo(ok), ok ? [2] : [], ok ? [] : [2]);
         resultado.replaceChildren(...(ok
           ? [h("div", { class: "eco-card" }, icone("reciclaveis", 34), h("div", null, h("strong", null, "Ponto Verde IFSC"), h("span", null, "Campo D'Una · Seg a Sex"))),
              h("div", { class: "eco-card novo" }, icone("oleo", 34), h("div", null, h("strong", null, "Meu Ecoponto"), h("span", null, "Meu Bairro · Sábados, 09h às 13h")))]
