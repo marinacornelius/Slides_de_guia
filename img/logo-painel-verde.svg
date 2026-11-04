@@ -1,1 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#15803d"/><path d="M32 10c-9 0-15 7-15 15 0 11 15 29 15 29s15-18 15-29c0-8-6-15-15-15z" fill="#f0fdf4"/><path d="M32 18c-6 3-9 8-8 14 6 1 11-3 12-9 0-2-1-4-4-5z" fill="#22c55e"/><path d="M32 40V26" stroke="#15803d" stroke-width="3" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Painel Verde">
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16a34a"/>
+      <stop offset="1" stop-color="#064e3b"/>
+    </linearGradient>
+    <linearGradient id="folha" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#15803d"/>
+      <stop offset="1" stop-color="#4ade80"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#fundo)"/>
+  <path d="M32 7c-10.8 0-18.5 8-18.5 18.2C13.5 39 32 58 32 58s18.5-19 18.5-32.8C50.5 15 42.8 7 32 7z" fill="#fff"/>
+  <g transform="translate(32 25) scale(1.14) translate(-32.500 -28.500)">
+    <path d="M23.500 36.500c-.9-10.200 5.300-16.500 17.500-16.800.6 11.200-5.300 17.500-14.600 17.500-1 0-2-.1-2.900-.7z" fill="url(#folha)"/>
+    <path d="M25.500 36c3.400-5.700 7.600-9.800 12.600-12.300" fill="none" stroke="#fff" stroke-width="1.800" stroke-linecap="round"/>
+  </g>
+</svg>
