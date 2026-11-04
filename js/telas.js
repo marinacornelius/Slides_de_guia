@@ -87,7 +87,7 @@ const TELAS = [
       const html = () => `<span class="selo-ambiental">SNCT 2026 · Garopaba Sustentavel</span>\n<h1>${titulo}</h1>`;
       const css = () => `:root {\n  --verde-principal: ${cor};\n  --fundo-pagina: #f0fdf4;\n  --fundo-cartao: #ffffff;\n  --texto-escuro: #1e293b;\n}`;
       const edHtml = blocoCodigo("index.html", html(), { destacar: [2] });
-      const edCss = blocoCodigo("css/estilo.css", css(), { destacar: [2] });
+      const edCss = blocoCodigo("css/style.css", css(), { destacar: [2] });
       const previa = h("div", { class: "previa-site", style: `--cor:${cor}` },
         h("div", { class: "cab" }, h("small", null, "SNCT 2026"), h("strong", null, titulo)),
         h("div", { class: "cards" }, h("span"), h("span"), h("span")));
@@ -107,10 +107,10 @@ const TELAS = [
               ["Extraia ", arq("starter-kit-painel-verde.zip")],
               ["Abra ", arq("index.html"), " com duplo clique"],
               ["Edite o título no ", arq("index.html")],
-              ["Troque a cor no ", arq("css/estilo.css")]
+              ["Troque a cor no ", arq("css/style.css")]
             ], "compacto"),
             passo(h("pre", { class: "cartao arvore", "aria-label": "Estrutura de pastas" },
-              "starter-kit-painel-verde/\n├─ ", h("b", null, "index.html"), "\n├─ css/", h("b", null, "estilo.css"), "\n├─ js/app.js\n└─ README.md"))),
+              "starter-kit-painel-verde/\n├─ ", h("b", null, "index.html"), "\n├─ css/", h("b", null, "style.css"), "\n├─ js/app.js\n└─ README.md"))),
           h("div", { class: "pilha" },
             passo(h("div", { class: "controles" },
               h("label", { for: "campoTitulo" }, "Título"), campoTitulo, h("label", { for: "campoCor" }, "Cor"), seletor)),
@@ -126,7 +126,7 @@ const TELAS = [
     notas: ["Digite junto com a turma, narrando cada linha em voz alta.", "Clique em “Esqueça a vírgula” para mostrar o erro mais comum antes de ele acontecer.",
             "Lembre: a categoria precisa ser igual ao texto de um botão."],
     render: () => {
-      const corpo = (ok) => `        mapaUrl: "https://maps.app.goo.gl/r5PxGL6jaeWf9rwJ7"\n    }${ok ? "," : ""}\n    {\n        nome: "Meu Ecoponto",\n        bairro: "Meu Bairro",\n        categoria: "Oleo",\n        horario: "Sabados, 09h as 13h",\n        mapaUrl: "https://maps.google.com/?q=Garopaba"\n    }\n];`;
+      const corpo = (ok) => `        mapaUrl: "https://maps.google.com/?q=Praia+da+Ferrugem+Garopaba"\n    }${ok ? "," : ""}\n    {\n        nome: "Meu Ecoponto",\n        bairro: "Meu Bairro",\n        categoria: "Oleo",\n        horario: "Sabados, 09h as 13h",\n        mapaUrl: "https://maps.google.com/?q=Garopaba"\n    }\n];`;
       const editor = blocoCodigo("js/app.js · fim da lista LOCAIS_COLETA", corpo(true), { destacar: [2] });
       const resultado = h("div", { class: "pilha" });
       let ok = true;
