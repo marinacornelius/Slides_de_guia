@@ -54,7 +54,7 @@ pdf/                cópia offline
 ## Créditos
 
 - Foto de capa: *Panoramic view of Garopaba beach*, Heylenny, CC BY-SA 4.0 (Wikimedia Commons). Foto do encerramento: *Praia Vermelha, Garopaba*, Fronteira, CC BY-SA 4.0 (Wikimedia Commons).
-- GIFs: [GIPHY](https://giphy.com) (selo FIZ IFSC do canal [@ifsc](https://giphy.com/ifsc)).
+- GIFs: [GIPHY](https://giphy.com) (foguete IFSC do canal [@ifsc](https://giphy.com/ifsc)).
 - Bibliotecas: Bootstrap 5.3.3, qrcodejs 1.0.0.
 
 ## O que depende das outras frentes
