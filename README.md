@@ -11,7 +11,8 @@ HTML + Bootstrap 5 + JavaScript puro, sem build: abre com duplo clique no `index
 | `1`–`8` | ir direto à tela |
 | `G` | visão geral das 8 telas |
 | `N` | notas do instrutor (com a página do Micro-Roteiro) |
-| `P` / `R` | cronômetro da tela: iniciar-pausar / zerar |
+| `P` | cronômetro: iniciar / pausar (mostra tela, bloco e total da oficina) |
+| `R` / `Shift`+`R` | zera a tela atual / zera a oficina inteira |
 | `F` | tela cheia · `?` atalhos |
 
 - `?modo=aluno`: todas as telas em coluna (celular/estudo).
