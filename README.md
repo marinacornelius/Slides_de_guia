@@ -17,6 +17,7 @@ HTML + Bootstrap 5 + JavaScript puro, sem build: abre com duplo clique no `index
 
 - `?modo=aluno`: todas as telas em coluna (celular/estudo).
 - `?pesquisa=https://...`: define o QR da pesquisa de satisfação (Tela 8, Frente 4).
+- `?mural=https://...`: define o link do Mural do Curso 2 (Tela 7, Seção 4 do Moodle).
 - `Ctrl+P`: imprime/gera PDF (A4 paisagem, 1 tela por página). Cópia pronta em `pdf/`.
 
 ## As 8 telas
@@ -40,7 +41,7 @@ Regras de projeção (6 m): máx. 12 linhas de código por tela · texto ≥ 1.3
 index.html          casca da página
 css/estilo.css      tema, componentes, impressão
 fonts/              Plus Jakarta Sans e JetBrains Mono (locais)
-js/config.js        links (painel demo, Moodle, pesquisa)
+js/config.js        links (painel demo, Moodle, pesquisa, mural)
 js/dom.js           helper h() e componentes (editor de código, cartões)
 js/componentes.js   QR Code, gerador, simulador, confete
 js/telas.js         conteúdo das 8 telas
@@ -55,3 +56,14 @@ pdf/                cópia offline
 - Foto de capa: *Panoramic view of Garopaba beach*, Heylenny, CC BY-SA 4.0 (Wikimedia Commons). Foto do encerramento: *Praia Vermelha, Garopaba*, Fronteira, CC BY-SA 4.0 (Wikimedia Commons).
 - GIFs: [GIPHY](https://giphy.com) (selo FIZ IFSC do canal [@ifsc](https://giphy.com/ifsc)).
 - Bibliotecas: Bootstrap 5.3.3, qrcodejs 1.0.0.
+
+## O que depende das outras frentes
+
+Estes itens aparecem nos slides, mas são criados por outras equipes. Enquanto faltarem, a Tela 7 e a Tela 8 mostram um aviso amarelo para o instrutor (ele não sai no PDF nem no modo aluno).
+
+| Item | Frente | Onde entra |
+|---|---|---|
+| Mural do Curso 2 na **Seção 4** do Moodle | 1 e 4 | Tela 7 · `CONFIG.mural` ou `?mural=LINK` |
+| Pesquisa de satisfação (link e QR) na **Seção 4** do Moodle | 4 | Tela 8 · `CONFIG.pesquisa` ou `?pesquisa=LINK` |
+| `starter-kit-painel-verde.zip` na **Seção 1** | 2 | Telas 2 e 3 |
+| Micro-Roteiro em PDF na **Seção 0** | 1 | Tela 2 |
