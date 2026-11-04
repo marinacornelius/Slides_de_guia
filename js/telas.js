@@ -298,7 +298,7 @@ const TELAS = [
             !temQr && h("div", { class: "aviso-config" }, "⚠️ Falta o link da pesquisa (Frente 4). Use ", h("code", null, "?pesquisa=LINK"), " na URL."))),
           passo(h("div", { class: "linha-gif" },
             h("div", { class: "tile" }, imagem("futuro-verde.gif", "", "O futuro é verde"), h("span", { class: "cred" }, "GIF via GIPHY")),
-            h("div", { class: "selo-fiz" }, imagem("fiz-ifsc.gif", "", "FIZ IFSC"))))));
+            h("div", { class: "tile foguete" }, imagem("foguete-ifsc.gif", "", "Foguete do IFSC"), h("span", { class: "cred" }, "GIF via GIPHY"))))));
     }
   }
 ];
