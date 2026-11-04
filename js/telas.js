@@ -18,27 +18,6 @@ function ligarFoco(lista, alvos) {
   return lista;
 }
 
-/* contador dos cartões da turma: o instrutor clica a cada cartão levantado (+) ou baixado (−) */
-function semaforoTurma() {
-  const contador = (cls, icone, texto) => {
-    let n = 0;
-    const num = h("b", { "aria-live": "polite" }, "0");
-    const muda = (d) => { n = Math.max(0, n + d); num.textContent = String(n); caixa.classList.toggle("ativa", n > 0); };
-    const caixa = h("div", { class: "luz " + cls },
-      h("button", { type: "button", class: "menos", "aria-label": "Tirar um cartão: " + texto, onclick: () => muda(-1) }, "−"),
-      h("button", { type: "button", class: "mais", "aria-label": "Contar um cartão: " + texto, onclick: () => muda(1) }, icone + " " + texto),
-      num);
-    caixa.zerar = () => muda(-n);
-    return caixa;
-  };
-  const verde = contador("verde", "🟩", "Terminei");
-  const vermelha = contador("vermelha", "🟥", "Preciso de ajuda");
-  return h("div", { class: "semaforo", role: "group", "aria-label": "Contador de cartões da turma" },
-    verde, vermelha,
-    h("button", { type: "button", class: "zerar", title: "Zerar os dois contadores", onclick: () => { verde.zerar(); vermelha.zerar(); } }, "↺ Zerar"),
-    h("p", { class: "dica-semaforo" }, "Clique a cada cartão levantado pela turma"));
-}
-
 const numero = (n, rotulo) => h("span", { class: "numero" }, h("b", null, n), rotulo);
 
 const TELAS = [
@@ -46,14 +25,13 @@ const TELAS = [
   {
     rotulo: "Acolhida", titulo: "Acolhida", bloco: 0, min: 10, intervalo: "00–10 min", pagina: 1, classe: "capa",
     notas: ["Receba a turma com esta tela já projetada.", "Peça para apontarem a câmera do celular para o QR: é o resultado que vão construir.",
-            "Combine o sinal de ajuda: cartão verde = terminei, cartão vermelho = estou travado. Conte os cartões levantados nos botões da tela: o contador vermelho mostra quantos pedem ajuda."],
+            "Avise que o apoio de bancada circula pela sala durante os blocos práticos."],
     render: () => [
       h("div", { class: "capa-grade" },
         h("div", null,
           h("h1", null, "Painel Verde de Garopaba", h("span", { class: "destaque" }, "no ar em 120 minutos")),
           h("p", { class: "lead" }, "Coleta seletiva e ecopontos · ", forte("SNCT 2026"), " · IFSC Câmpus Garopaba. Hoje você publica ", forte("o seu site"), " e o abre no celular por QR Code."),
-          passo(h("div", { class: "numeros" }, numero("4", "blocos práticos"), numero("0", "instalações"), numero("1", "site seu, no ar"))),
-          passo(semaforoTurma())),
+          passo(h("div", { class: "numeros" }, numero("4", "blocos práticos"), numero("0", "instalações"), numero("1", "site seu, no ar")))),
         passo(h("div", { class: "qr-card" },
           caixaQr(CONFIG.painelDemo, 300, false),
           h("p", { class: "legenda" }, "📱 Aponte a câmera e veja o painel pronto"),
@@ -106,8 +84,8 @@ const TELAS = [
             "Checkpoint: todos apertam F5 e enxergam o próprio título."],
     render: () => {
       let titulo = "Onde Descartar em Garopaba?", cor = "#15803d";
-      const html = () => `<span class="selo-ambiental">SNCT 2026</span>\n<h1>${titulo}</h1>`;
-      const css = () => `:root {\n  --verde-principal: ${cor};\n  --fundo-pagina: #f0fdf4;\n  --texto-escuro: #1e293b;\n}`;
+      const html = () => `<span class="selo-ambiental">SNCT 2026 · Garopaba Sustentavel</span>\n<h1>${titulo}</h1>`;
+      const css = () => `:root {\n  --verde-principal: ${cor};\n  --fundo-pagina: #f0fdf4;\n  --fundo-cartao: #ffffff;\n  --texto-escuro: #1e293b;\n}`;
       const edHtml = blocoCodigo("index.html", html(), { destacar: [2] });
       const edCss = blocoCodigo("css/estilo.css", css(), { destacar: [2] });
       const previa = h("div", { class: "previa-site", style: `--cor:${cor}` },
@@ -148,8 +126,8 @@ const TELAS = [
     notas: ["Digite junto com a turma, narrando cada linha em voz alta.", "Clique em “Esqueça a vírgula” para mostrar o erro mais comum antes de ele acontecer.",
             "Lembre: a categoria precisa ser igual ao texto de um botão."],
     render: () => {
-      const corpo = (ok) => `const LOCAIS_COLETA = [\n  { nome: "Ponto Verde IFSC", bairro: "Campo D'Una" }${ok ? "," : ""}\n  {\n    nome: "Meu Ecoponto",\n    bairro: "Meu Bairro",\n    categoria: "Oleo",\n    horario: "Sabados, 09h as 13h",\n    mapaUrl: "https://maps.google.com/?q=Garopaba"\n  }\n];`;
-      const editor = blocoCodigo("js/app.js", corpo(true), { destacar: [2] });
+      const corpo = (ok) => `        mapaUrl: "https://maps.app.goo.gl/r5PxGL6jaeWf9rwJ7"\n    }${ok ? "," : ""}\n    {\n        nome: "Meu Ecoponto",\n        bairro: "Meu Bairro",\n        categoria: "Oleo",\n        horario: "Sabados, 09h as 13h",\n        mapaUrl: "https://maps.google.com/?q=Garopaba"\n    }\n];`;
+      const editor = blocoCodigo("js/app.js · fim da lista LOCAIS_COLETA", corpo(true), { destacar: [2] });
       const resultado = h("div", { class: "pilha" });
       let ok = true;
       const botao = h("button", { type: "button", class: "btn-acao perigo" }, "💥 Esqueça a vírgula");
@@ -189,7 +167,7 @@ const TELAS = [
       h("div", { class: "corpo c2b" },
         h("div", { class: "pilha" },
           blocoCodigo("index.html · cada botão", `<button class="btn-filtro"\n  onclick="filtrarEcopontos('Vidro')">Vidro</button>`, { destacar: [2] }),
-          blocoCodigo("js/app.js · o filtro", `const filtrados = categoriaEscolhida === "Todos"\n  ? LOCAIS_COLETA\n  : LOCAIS_COLETA.filter(item =>\n      item.categoria === categoriaEscolhida);`, { destacar: [3, 4] }),
+          blocoCodigo("js/app.js · o filtro", `const filtrados = categoriaEscolhida === "Todos"\n    ? LOCAIS_COLETA\n    : LOCAIS_COLETA.filter(item => item.categoria === categoriaEscolhida);`, { destacar: [3] }),
           cartao("dica", "Como funciona", arq(".filter()"), " guarda ", forte("só"), " os locais cuja categoria é igual ao botão clicado.")),
         h("div", { class: "pilha" }, simuladorFiltro(), passo(h("p", { class: "dica-clique" }, "👆 Clique em “Oleo de Cozinha”: ainda não há nenhum!")))),
       checkpoint("Todos os filtros respondem e o ", forte("mapa abre no local certo"), ".")
