@@ -47,7 +47,7 @@ const TELAS = [
   {
     rotulo: "Sala no Moodle", titulo: "Sala no Moodle", bloco: 0, min: 5, intervalo: "10–15 min", pagina: 1,
     notas: ["Mostre o caminho na tela do professor e espere todos entrarem.", "A chave SNCT2026 copia com um clique.",
-            "Quem não achou o PDF: ele está na Seção 0 (Geral)."],
+            "Quem não achou o PDF: ele está na seção Boas-vindas & Kit (Seção 0)."],
     render: () => {
       const linha = (ic, t) => h("div", { class: "mock-linha" }, h("span", { class: "ic" }, ic), t);
       const titulo = h("p", { class: "mock-titulo" }, "SNCT 2026 — Oficina: Painel Verde Garopaba");
@@ -57,8 +57,8 @@ const TELAS = [
       const lista = listaPassos([
         ["Acesse ", forte("moodle.ifsc.edu.br"), " e abra a sala do ", forte("Curso 2")],
         ["Chave de inscrição: ", chave],
-        ["Na ", forte("Seção 0"), ": abra o ", forte("Micro-Roteiro (PDF)")],
-        ["Na ", forte("Seção 1"), ": baixe ", arq("starter-kit-painel-verde.zip")]
+        ["Em ", forte("Boas-vindas & Kit"), ": abra o ", forte("Micro-Roteiro (PDF)")],
+        ["Em ", forte("Starter Kit"), ": baixe ", arq("starter-kit-painel-verde.zip")]
       ]);
       ligarFoco(lista, [titulo, chave, pdf, zip]);
       return [
@@ -67,9 +67,9 @@ const TELAS = [
           h("div", { class: "pilha" }, lista),
           h("div", { class: "pilha" },
             passo(navegador("moodle.ifsc.edu.br/course/view.php?id=2664", titulo,
-              h("div", { class: "mock-sec" }, "Seção 0 · Geral"), pdf,
-              h("div", { class: "mock-sec" }, "Seção 1"), zip,
-              h("div", { class: "mock-sec" }, "Seção 4"), linha("💬", "Mural do Curso 2"))),
+              h("div", { class: "mock-sec" }, "Boas-vindas & Kit"), pdf,
+              h("div", { class: "mock-sec" }, "Starter Kit"), zip,
+              h("div", { class: "mock-sec" }, "No Ar!"), linha("💬", "Mural do Curso 2"))),
             passo(h("div", { class: "cartao dica", style: "display:flex;align-items:center;gap:1.4rem" },
               caixaQr(CONFIG.moodle, 120, true),
               h("div", null, h("span", { class: "rotulo" }, "Prefere o celular?"), "Aponte a câmera para abrir a sala do Curso 2 no Moodle IFSC.")))))
@@ -222,7 +222,7 @@ const TELAS = [
   {
     rotulo: "Bloco 4", titulo: "Bloco 4 · QR Code e Mural", bloco: 4, min: 15, intervalo: "95–110 min", pagina: 4,
     notas: ["Cada aluno cola a própria URL .github.io no gerador.", "Peça que testem o QR no celular do colega ao lado.",
-            "O Mural do Curso 2 fica na Seção 4 do Moodle e é criado pelas Frentes 1 e 4: confirme que ele existe antes da oficina.", "Se aparecer o aviso amarelo, falta o link do Mural: abra os slides com ?mural=LINK."],
+            "O Mural do Curso 2 fica na seção No Ar! (Seção 3) do Moodle e é criado pela Frente 1, com apoio da Frente 4: confirme que ele existe antes da oficina.", "Se aparecer o aviso amarelo, falta o link do Mural: abra os slides com ?mural=LINK."],
     render: () => [
       h("h2", { class: "titulo" }, "Gere o ", destaque("QR Code"), " e poste no ", destaque("Mural")),
       h("div", { class: "corpo c2b" },
@@ -230,11 +230,11 @@ const TELAS = [
           listaPassos([
             ["Cole a ", forte("URL .github.io"), " do seu painel no gerador"],
             ["Clique em ", forte("Baixar PNG")],
-            ["No Moodle (", forte("Seção 4"), "), abra o ", CONFIG.mural ? h("a", { href: CONFIG.mural, target: "_blank", rel: "noopener" }, forte("Mural do Curso 2")) : forte("Mural do Curso 2"), " e poste ", forte("QR + link")],
+            ["No Moodle (", forte("No Ar!"), "), abra o ", CONFIG.mural ? h("a", { href: CONFIG.mural, target: "_blank", rel: "noopener" }, forte("Mural do Curso 2")) : forte("Mural do Curso 2"), " e poste ", forte("QR + link")],
             ["Teste no ", forte("celular de um colega"), " 📱"]
           ]),
           cartao("dica", "Dica", "Se o QR abrir em branco, volte à Tela 6: o link ainda não está no ar."),
-          !CONFIG.mural && h("div", { class: "aviso-config" }, "⚠️ Falta o link do Mural na Seção 4 (Frentes 1 e 4). Use ", h("code", null, "?mural=LINK"), " na URL.")),
+          !CONFIG.mural && h("div", { class: "aviso-config" }, "⚠️ Falta o link do Mural na seção No Ar! (Frentes 1 e 4). Use ", h("code", null, "?mural=LINK"), " na URL.")),
         h("div", { class: "pilha" }, geradorQr())),
       checkpoint("O Painel Verde abre no ", forte("celular de outra pessoa"), " pelo QR Code.")
     ]
@@ -268,7 +268,7 @@ const TELAS = [
       return h("div", { class: "corpo c2c", style: "align-items:center" },
         h("div", { class: "pilha", style: "gap:1.6rem" },
           h("h2", { class: "titulo" }, "Missão cumprida! ", h("br"), destaque("Conte como foi.")),
-          h("p", { class: "sub", style: "margin:0" }, "Responda a ", forte("pesquisa de satisfação"), " (2 minutos). O link também está na ", forte("Seção 4"), " da sala do Curso 2."),
+          h("p", { class: "sub", style: "margin:0" }, "Responda a ", forte("pesquisa de satisfação"), " (2 minutos). O link também está na seção ", forte("Avaliação & Certificado"), " da sala do Curso 2."),
           passo(h("div", { class: "linha-anel" }, anel, h("strong", { style: "font-size:1.5rem" }, "Marque o que você conquistou hoje:"))),
           passo(lista)),
         h("div", { class: "final-lado" },

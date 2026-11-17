@@ -9,7 +9,7 @@ const CONFIG = {
   moodle: "https://moodle.ifsc.edu.br/course/view.php?id=2664",
   // Tela 8: link da pesquisa de satisfação (vem da Frente 4)
   pesquisa: "",
-  // Tela 7: link do Mural do Curso 2 (Seção 4 do Moodle, criado pelas Frentes 1 e 4)
+  // Tela 7: link do Mural do Curso 2 (seção No Ar! do Moodle, criado pela Frente 1 com apoio da Frente 4)
   mural: ""
 };
 
