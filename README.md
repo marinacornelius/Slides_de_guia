@@ -17,7 +17,7 @@ HTML + Bootstrap 5 + JavaScript puro, sem build: abre com duplo clique no `index
 
 - `?modo=aluno`: todas as telas em coluna (celular/estudo).
 - `?pesquisa=https://...`: define o QR da pesquisa de satisfação (Tela 8, Frente 4).
-- `?mural=https://...`: define o link do Mural do Curso 2 (Tela 7, Seção 4 do Moodle).
+- `?mural=https://...`: define o link do Mural do Curso 2 (Tela 7, seção No Ar! do Moodle).
 - `Ctrl+P`: imprime/gera PDF (A4 paisagem, 1 tela por página). Cópia pronta em `pdf/`.
 
 ## As 8 telas
@@ -63,7 +63,12 @@ Estes itens aparecem nos slides, mas são criados por outras equipes. Enquanto f
 
 | Item | Frente | Onde entra |
 |---|---|---|
-| Mural do Curso 2 na **Seção 4** do Moodle | 1 e 4 | Tela 7 · `CONFIG.mural` ou `?mural=LINK` |
-| Pesquisa de satisfação (link e QR) na **Seção 4** do Moodle | 4 | Tela 8 · `CONFIG.pesquisa` ou `?pesquisa=LINK` |
-| `starter-kit-painel-verde.zip` na **Seção 1** | 2 | Telas 2 e 3 |
-| Micro-Roteiro em PDF na **Seção 0** | 1 | Tela 2 |
+| Mural do Curso 2 na seção **No Ar!** (Seção 3) do Moodle | 1 e 4 | Tela 7 · `CONFIG.mural` ou `?mural=LINK` |
+| Pesquisa de satisfação (link e QR) na seção **Avaliação & Certificado** (Seção 4) do Moodle | 4 | Tela 8 · `CONFIG.pesquisa` ou `?pesquisa=LINK` |
+| `starter-kit-painel-verde.zip` na seção **Starter Kit** (Seção 1) | 2 | Telas 2 e 3 |
+| Micro-Roteiro em PDF na seção **Boas-vindas & Kit** (Seção 0) | 1 | Tela 2 |
+
+## Offline (Plano B)
+
+`vendor/qrcode.min.js` (qrcodejs 1.0.0, MIT) e `vendor/bootstrap.min.css` (Bootstrap 5.3.3, MIT) são cópias locais:
+os slides abrem sem internet por duplo clique em `index.html` (QR Codes incluídos).
